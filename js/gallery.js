@@ -89,7 +89,7 @@ function onImageClick(e) {
     return;
   }
   const instance = basicLightbox.create(`
-		<img width="1400" height="900" src="${e.target.dataset.source}">
+		<img width="100%" height="100%" src="${e.target.dataset.source}">
 	`);
   instance.show();
   galleryList.addEventListener('keydown', e => {
