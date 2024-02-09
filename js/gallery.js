@@ -82,6 +82,7 @@ function onImageClick(e) {
     if (e.code === 'Escape') {
       instance.close();
     }
+    galleryList.removeEventListener('keydown', instanceClose)
   }
 
   instance.show();
