@@ -58,10 +58,10 @@ const galleryMarkup = images.map(
   </a>
 </li>`
 );
-// Без join портится верстка
+
 galleryList.innerHTML = galleryMarkup.join('');
-// document вместо galleryList
-document.addEventListener('click', onImageClick);
+// вернул galleryList
+galleryList.addEventListener('click', onImageClick);
 
 function onImageClick(e) {
   e.preventDefault();
@@ -72,19 +72,18 @@ function onImageClick(e) {
 
   const modalMarkup = `<img width="100%" height="100%" src="${e.target.dataset.source}">`;
 
-  // Добавление/удаление обработчика для события при нажатии клавиши
+  // galleryList вместо document
   const instance = basicLightbox.create(modalMarkup, {
-    onShow: (instance) => document.addEventListener('keydown', e => {
-      if (e.code === 'Escape') {
-        instance.close();
-      }
-    }),
-    onClose: (instance) => document.removeEventListener('keydown', e => {
-      if (e.code === 'Escape') {
-        instance.close();
-      }
-    })
+    onShow: (instance) => galleryList.addEventListener('keydown', instanceClose),
+    onClose: (instance) => galleryList.removeEventListener('keydown', instanceClose)
   })
+
+  function instanceClose(e) {
+    if (e.code === 'Escape') {
+      instance.close();
+    }
+  }
+
   instance.show();
 
 }
